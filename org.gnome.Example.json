@@ -39,7 +39,7 @@
                 {
                     "type" : "git",
                     "url" : "https://github.com/JCWasmx86/swift-flatpak-test",
-                    "branch" : "master"
+                    "branch" : "main"
                 }
             ],
             "build-commands": [
