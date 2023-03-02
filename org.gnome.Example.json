@@ -1,0 +1,52 @@
+{
+    "app-id" : "org.gnome.Example",
+    "runtime" : "org.gnome.Platform",
+    "runtime-version" : "master",
+    "sdk" : "org.gnome.Sdk",
+    "sdk-extensions" : [
+        "org.freedesktop.Sdk.Extension.swift"
+    ],
+    "command" : "SwiftTestFlatpak",
+    "finish-args" : [
+        "--share=network",
+        "--share=ipc",
+        "--socket=fallback-x11",
+        "--device=dri",
+        "--socket=wayland"
+    ],
+    "build-options" : {
+        "append-path" : "/usr/lib/sdk/swift/bin",
+        "prepend-ld-library-path" : "/usr/lib/sdk/swift/lib"
+    },
+    "cleanup" : [
+        "/include",
+        "/lib/pkgconfig",
+        "/man",
+        "/share/doc",
+        "/share/gtk-doc",
+        "/share/man",
+        "/share/pkgconfig",
+        "/share/vala",
+        "*.la",
+        "*.a"
+    ],
+    "modules" : [
+        {
+            "name" : "swift-test-flatpak",
+            "builddir" : true,
+            "buildsystem" : "simple",
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://github.com/JCWasmx86/swift-flatpak-test",
+                    "branch" : "master"
+                }
+            ],
+            "build-commands": [
+                "swift build -c release --static-swift-stdlib",
+                "mkdir /app/bin",
+                "cp .build/release/SwiftTestFlatpak /app/bin"
+            ]
+        }
+    ]
+}
